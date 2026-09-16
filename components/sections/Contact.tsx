@@ -46,7 +46,7 @@ export default function Contact() {
         await emailjs.sendForm(serviceId, templateId, formRef.current!, publicKey);
       } else {
         // Fallback: open mailto link
-        window.location.href = `mailto:raoarslan606@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
+        window.location.href = `mailto:marslanrasheed73@gmail.com?subject=Portfolio Contact from ${formData.name}&body=${encodeURIComponent(formData.message)}`;
       }
 
       setStatus("success");
@@ -86,8 +86,8 @@ export default function Contact() {
                         {iconMap[link.icon]}
                       </span>
                       <span className="contact__link-text">
-                        {link.name === "Email" && "raoarslan606@gmail.com"}
-                        {link.name === "Phone" && "+92 300 123 4567"}
+                        {link.name === "Email" && "marslanrasheed73@gmail.com"}
+                        {link.name === "Phone" && "+92 307 1417820"}
                         {link.name === "LinkedIn" && "linkedin.com/in/raoarslan606"}
                         {link.name === "GitHub" && "github.com/raoarslan606"}
                       </span>

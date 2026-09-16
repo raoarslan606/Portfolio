@@ -85,9 +85,9 @@ export default function Navbar() {
           <button
             className="btn btn--accent navbar__cta"
             onClick={() => handleNavClick("#contact")}
-            aria-label="Hire me — scroll to contact"
+            aria-label="Book a meeting — scroll to contact"
           >
-            Hire Me
+            Book a Meeting
           </button>
 
           {/* Mobile hamburger */}
@@ -163,7 +163,7 @@ export default function Navbar() {
                 className="btn btn--accent"
                 onClick={() => handleNavClick("#contact")}
               >
-                Hire Me
+                Book a Meeting
               </button>
             </div>
           </motion.div>

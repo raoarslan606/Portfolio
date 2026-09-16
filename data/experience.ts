@@ -54,12 +54,12 @@ export const socialLinks: SocialLink[] = [
   },
   {
     name: "Email",
-    url: "mailto:raoarslan606@gmail.com",
+    url: "mailto:marslanrasheed73@gmail.com",
     icon: "Mail",
   },
   {
     name: "Phone",
-    url: "tel:+923001234567",
+    url: "tel:+923071417820",
     icon: "Phone",
   },
 ];
