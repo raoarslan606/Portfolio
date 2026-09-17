@@ -53,10 +53,9 @@ export default function HomePage() {
           <main id="main-content" tabIndex={-1} aria-label="Main content">
             <Hero />
             <About />
-            <Skills />
-            <Experience />
             <Projects />
-            <Education />
+            <Experience />
+            <Skills />
             <Contact />
           </main>
           <Footer />
