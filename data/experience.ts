@@ -6,7 +6,7 @@ export const experiences: Experience[] = [
     company: "Quantum Bases",
     role: "MERN Stack Developer",
     period: "Aug 2024 – Present",
-    location: "Remote",
+    location: "Onsite",
     type: "full-time",
     description: [
       "Architected and delivered full-stack features across multiple SaaS, health-tech, and Web3 products serving thousands of users.",
@@ -65,10 +65,9 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const navItems: NavItem[] = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "About Me", href: "#about" },
+  { label: "Portfolio", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
+  { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
