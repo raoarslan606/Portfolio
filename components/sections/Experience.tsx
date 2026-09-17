@@ -1,113 +1,175 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Briefcase, MapPin, Calendar } from "lucide-react";
-import SectionHeading from "@/components/ui/SectionHeading";
-import Badge from "@/components/ui/Badge";
-import { experiences } from "@/data/experience";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { experiences, education } from "@/data/experience";
+import { smoothScrollTo } from "@/lib/utils";
 
 /**
- * Experience section — vertical animated timeline with scroll-reveal bullets.
+ * Editorial Studio Experience Section (Wolfpixel Style)
+ * Matching Reference Screenshot 5:
+ * - Section header with eyebrow, title, narrative bio, and "Book A Call ↗" link
+ * - Horizontal list rows with pill tags, dates, and active preview card
  */
 export default function Experience() {
-  return (
-    <section id="experience" className="section" aria-labelledby="exp-heading">
-      <div className="container">
-        <SectionHeading
-          id="exp-heading"
-          eyebrow="Work History"
-          title="Where I've Built"
-        />
+  const currentExp = experiences[0];
 
-        <div className="timeline" role="list">
-          {experiences.map((exp, i) => (
-            <TimelineItem key={exp.id} experience={exp} index={i} />
+  return (
+    <section id="experience" className="studio-experience" aria-labelledby="exp-heading">
+      <div className="studio-container">
+        {/* Header matching Screenshot 5 */}
+        <div className="studio-exp-header">
+          <div>
+            <div className="studio-eyebrow">
+              <span className="studio-eyebrow__dot" />
+              <span>Experiences</span>
+            </div>
+            <h2 id="exp-heading" className="studio-section-title">
+              Explore My Engineering Journey
+            </h2>
+          </div>
+
+          <div className="studio-exp-header__right">
+            <p className="studio-exp-header__desc">
+              Over the past 2+ years, I&apos;ve had the opportunity to architect and ship a wide range of
+              SaaS, Web3, and health-tech platforms; collaborating with diverse teams and founders to
+              bring creative visions to life.
+            </p>
+            <button
+              onClick={() => smoothScrollTo("#contact", -70)}
+              className="studio-link-arrow"
+            >
+              <span>Book A Call</span>
+              <ArrowUpRight size={15} />
+            </button>
+          </div>
+        </div>
+
+        {/* Timeline Rows */}
+        {/* Timeline Rows — Editorial Divider List matching Dribbble Reference */}
+        <div className="studio-exp-list">
+          {/* Active Featured Experience Row (Expanded card with 3 images like Screenshot 5) */}
+          <motion.div
+            className="studio-exp-row studio-exp-row--active"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="studio-exp-row__main">
+              <div className="studio-exp-row__meta">
+                <h3 className="studio-exp-row__company">
+                  {currentExp.company}, {currentExp.location}
+                </h3>
+                <span className="studio-exp-row__date">• {currentExp.period}</span>
+              </div>
+              <div className="studio-exp-row__role">{currentExp.role}</div>
+              <div className="studio-exp-row__tags">
+                <span className="studio-tag studio-tag--dark">MERN Stack</span>
+                <span className="studio-tag">Web3</span>
+                <span className="studio-tag">Next.js</span>
+              </div>
+            </div>
+
+            {/* 3 Preview Thumbnails + Narrative + Action Button (Screenshot 5) */}
+            <div className="studio-exp-preview">
+              <div className="studio-exp-preview__images">
+                <div className="studio-exp-preview__img-box">
+                  <Image
+                    src="/images/projects/verifilite.png"
+                    alt="Verifilite project preview"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
+                <div className="studio-exp-preview__img-box">
+                  <Image
+                    src="/images/projects/vitu.png"
+                    alt="Vitu health-tech platform preview"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
+                <div className="studio-exp-preview__img-box">
+                  <Image
+                    src="/images/projects/verifilite-portal.png"
+                    alt="Verifilite portal preview"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                  />
+                </div>
+              </div>
+
+              <div className="studio-exp-preview__content">
+                <p className="studio-exp-preview__text">
+                  From architecting AI identity verification pipelines (Verifilite) to leading Web3 token
+                  presale platforms (OFNT &amp; ASFR) and real-time medical IoT device dashboards (Vitu),
+                  each experience has strengthened my passion for solving complex full-stack challenges.
+                </p>
+                <button
+                  onClick={() => smoothScrollTo("#projects", -70)}
+                  className="studio-circle-arrow-btn"
+                  aria-label="View projects"
+                >
+                  <ArrowUpRight size={22} />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Education / Degree Row */}
+          {education.map((edu, idx) => (
+            <motion.div
+              key={edu.id}
+              className="studio-exp-row"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 * (idx + 1) }}
+            >
+              <div className="studio-exp-row__main">
+                <div className="studio-exp-row__meta">
+                  <h3 className="studio-exp-row__company">{edu.institution}</h3>
+                  <span className="studio-exp-row__date">• {edu.period}</span>
+                </div>
+                <div className="studio-exp-row__role">
+                  {edu.degree} in {edu.field}
+                </div>
+                <div className="studio-exp-row__tags">
+                  <span className="studio-tag">Computer Science</span>
+                  <span className="studio-tag">Algorithms &amp; DS</span>
+                </div>
+              </div>
+            </motion.div>
           ))}
+
+          {/* Freelance & Open Source Row */}
+          <motion.div
+            className="studio-exp-row"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="studio-exp-row__main">
+              <div className="studio-exp-row__meta">
+                <h3 className="studio-exp-row__company">Independent Web3 &amp; SaaS Consulting</h3>
+                <span className="studio-exp-row__date">• 2023 – Present</span>
+              </div>
+              <div className="studio-exp-row__role">Full-Stack Solutions Architect</div>
+              <div className="studio-exp-row__tags">
+                <span className="studio-tag">Smart Contracts</span>
+                <span className="studio-tag">Tailwind</span>
+                <span className="studio-tag">Node APIs</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
-  );
-}
-
-interface TimelineItemProps {
-  experience: (typeof experiences)[number];
-  index: number;
-}
-
-function TimelineItem({ experience, index }: TimelineItemProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const lineHeight = useTransform(scrollYProgress, [0, 0.5], ["0%", "100%"]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="timeline__item"
-      role="listitem"
-      initial={{ opacity: 0, x: -30 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {/* Timeline line */}
-      <div className="timeline__line-track" aria-hidden="true">
-        <motion.div className="timeline__line-fill" style={{ height: lineHeight }} />
-        <div className="timeline__dot" />
-      </div>
-
-      {/* Content card */}
-      <div className="timeline__card">
-        {/* Header */}
-        <div className="timeline__header">
-          <div className="timeline__company-info">
-            <div className="timeline__company-icon" aria-hidden="true">
-              <Briefcase size={18} />
-            </div>
-            <div>
-              <h3 className="timeline__role">{experience.role}</h3>
-              <p className="timeline__company">{experience.company}</p>
-            </div>
-          </div>
-          <div className="timeline__meta">
-            <span className="timeline__period">
-              <Calendar size={13} aria-hidden="true" />
-              {experience.period}
-            </span>
-            {experience.location && (
-              <span className="timeline__location">
-                <MapPin size={13} aria-hidden="true" />
-                {experience.location}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Description bullets */}
-        <ul className="timeline__bullets" aria-label="Responsibilities and achievements">
-          {experience.description.map((point, pi) => (
-            <motion.li
-              key={pi}
-              className="timeline__bullet"
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-20px" }}
-              transition={{ duration: 0.5, delay: pi * 0.07 }}
-            >
-              {point}
-            </motion.li>
-          ))}
-        </ul>
-
-        {/* Tech tags */}
-        <div className="timeline__tech" aria-label="Technologies used">
-          {experience.technologies.map((tech) => (
-            <Badge key={tech} variant="accent" className="badge--sm">
-              {tech}
-            </Badge>
-          ))}
-        </div>
-      </div>
-    </motion.div>
   );
 }
