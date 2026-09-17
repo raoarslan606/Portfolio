@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { projects } from "@/data/projects";
 import type { Project } from "@/types";
@@ -10,17 +9,17 @@ import type { Project } from "@/types";
 type FilterCategory = "all" | Project["category"];
 
 const filters: { label: string; value: FilterCategory }[] = [
-  { label: "All", value: "all" },
-  { label: "Health-Tech", value: "health-tech" },
-  { label: "AI", value: "ai" },
+  { label: "All Work", value: "all" },
   { label: "Web3", value: "web3" },
-  { label: "SaaS", value: "saas" },
-  { label: "Fleet", value: "fleet" },
-  { label: "Admin", value: "admin" },
+  { label: "AI Platforms", value: "ai" },
+  { label: "Health-Tech", value: "health-tech" },
+  { label: "SaaS Systems", value: "saas" },
+  { label: "Fleet & Admin", value: "fleet" },
 ];
 
 /**
- * Projects section — filterable grid of project cards with layout animations.
+ * Editorial Studio Projects Section (Wolfpixel Style)
+ * Matching Reference Screenshot 4
  */
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
@@ -31,53 +30,45 @@ export default function Projects() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <section id="projects" className="section section--alt" aria-labelledby="projects-heading">
-      <div className="container">
-        <SectionHeading
-          id="projects-heading"
-          eyebrow="Selected Work"
-          title="Projects I've Shipped"
-          subtitle="A selection of the products I've built — from AI platforms to Web3 ecosystems."
-        />
+    <section id="projects" className="studio-projects" aria-labelledby="projects-heading">
+      <div className="studio-container">
+        {/* Section Header */}
+        <div className="studio-section-header">
+          <div>
+            <div className="studio-eyebrow">
+              <span className="studio-eyebrow__dot" />
+              <span>Portfolio</span>
+            </div>
+            <h2 id="projects-heading" className="studio-section-title">
+              Crafted With Purpose
+            </h2>
+          </div>
 
-        {/* Filter tabs */}
-        <div
-          className="projects__filters"
-          role="tablist"
-          aria-label="Filter projects by category"
-        >
-          {filters.map((filter) => (
-            <button
-              key={filter.value}
-              className={`projects__filter-btn ${activeFilter === filter.value ? "projects__filter-btn--active" : ""}`}
-              onClick={() => setActiveFilter(filter.value)}
-              role="tab"
-              aria-selected={activeFilter === filter.value}
-              aria-label={`Filter: ${filter.label}`}
-            >
-              {filter.label}
-            </button>
-          ))}
+          {/* Filter Pills */}
+          <div className="studio-filter-pills" role="tablist" aria-label="Filter projects">
+            {filters.map((filter) => (
+              <button
+                key={filter.value}
+                className={`studio-filter-pill ${activeFilter === filter.value ? "studio-filter-pill--active" : ""}`}
+                onClick={() => setActiveFilter(filter.value)}
+                role="tab"
+                aria-selected={activeFilter === filter.value}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Project grid */}
+        {/* Project Grid */}
         <motion.div
-          className="projects__grid"
+          className="studio-projects__grid"
           layout
           role="tabpanel"
-          aria-label={`${activeFilter === "all" ? "All" : activeFilter} projects`}
+          aria-label="Projects showcase"
         >
           {filtered.map((project, i) => (
-            <motion.div
-              key={project.id}
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
-            >
-              <ProjectCard project={project} index={i} />
-            </motion.div>
+            <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </motion.div>
       </div>

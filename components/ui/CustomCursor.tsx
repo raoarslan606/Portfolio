@@ -65,7 +65,7 @@ export default function CustomCursor() {
       }
     };
 
-    const onMouseLeaveDoc = () => {
+    const hideCursor = () => {
       isVisible = false;
       if (dotRef.current) dotRef.current.style.opacity = "0";
       if (ringRef.current) ringRef.current.style.opacity = "0";
@@ -73,13 +73,15 @@ export default function CustomCursor() {
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     window.addEventListener("mouseover", onMouseOver, { passive: true });
-    document.addEventListener("mouseleave", onMouseLeaveDoc);
+    document.addEventListener("mouseleave", hideCursor);
+    window.addEventListener("blur", hideCursor);
     rafId = requestAnimationFrame(render);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseover", onMouseOver);
-      document.removeEventListener("mouseleave", onMouseLeaveDoc);
+      document.removeEventListener("mouseleave", hideCursor);
+      window.removeEventListener("blur", hideCursor);
       cancelAnimationFrame(rafId);
     };
   }, []);
